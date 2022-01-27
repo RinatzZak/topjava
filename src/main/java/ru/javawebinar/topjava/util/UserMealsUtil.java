@@ -3,11 +3,9 @@ package ru.javawebinar.topjava.util;
 import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.model.UserMealWithExcess;
 
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.Month;
-import java.util.Arrays;
-import java.util.List;
+import java.time.*;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class UserMealsUtil {
     public static void main(String[] args) {
