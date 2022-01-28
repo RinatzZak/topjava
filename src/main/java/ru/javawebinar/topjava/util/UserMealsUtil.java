@@ -45,12 +45,12 @@ public class UserMealsUtil {
         Map<LocalDate, Integer> sumOfCaloriesByDays =
                 meals.stream()
                         .collect(Collectors.groupingBy(userMeal -> userMeal.getDateTime().toLocalDate(),
-                        Collectors.summingInt(UserMeal::getCalories)));
+                                Collectors.summingInt(UserMeal::getCalories)));
 
         return meals.stream()
                 .filter(userMeal -> TimeUtil.isBetweenHalfOpen(userMeal.getDateTime().toLocalTime(), startTime, endTime))
                 .map(userMeal -> new UserMealWithExcess(userMeal.getDateTime(), userMeal.getDescription(), userMeal.getCalories(),
-                sumOfCaloriesByDays.get(userMeal.getDateTime().toLocalDate()) > caloriesPerDay))
+                        sumOfCaloriesByDays.get(userMeal.getDateTime().toLocalDate()) > caloriesPerDay))
                 .collect(Collectors.toList());
     }
 }
