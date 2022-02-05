@@ -17,7 +17,7 @@
 <h3><a href="index.html">Home</a></h3>
 <hr>
 <h2>Meals</h2>
-<br>
+<a href="meals?action=create">Add</a>
 <table border="1">
     <thead>
     <tr>
@@ -28,14 +28,14 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach items="${requestScope.mealToList}" var="meal">
+    <c:forEach items="${requestScope.mealList}" var="meal">
         <tr style="color:${meal.excess ? 'red' : 'green'}">
             <td><fmt:parseDate value="${meal.dateTime}" pattern="y-M-dd'T'H:m" var="date"/>
             <fmt:formatDate value="${date}" pattern="yyyy-MM-dd HH:mm" /></td>
             <td><c:out value="${meal.description}"/></td>
             <td><c:out value="${meal.calories}"/></td>
-            <td><a href="meals?action=edit&userId=<c:out value=" ${meal.excess} "/>">Update</a></td>
-            <td><a href="meals?action=delete&userId=<c:out value=" ${meal.excess} "/>">Delete</a></td>
+            <td><a href="meals?action=edit&id=<c:out value=" ${meal.id} "/>">Update</a></td>
+            <td><a href="meals?action=delete&id=<c:out value=" ${meal.id} "/>">Delete</a></td>
         </tr>
     </c:forEach>
     </tbody>
