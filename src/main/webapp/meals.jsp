@@ -20,7 +20,7 @@
 <a href="meals?action=create">Add</a>
 <table border="1">
     <thead>
-    <tr>
+    <tr style="background: lavender">
         <th>Date</th>
         <th>Description</th>
         <th>Calories</th>

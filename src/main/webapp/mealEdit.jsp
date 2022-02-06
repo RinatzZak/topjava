@@ -44,7 +44,7 @@
             <dt>Calories:</dt>
             <dd><input type="number" value="${meal.calories}" name="calories" required></dd>
         </dl>
-        <button type="submit">Ok</button>
+        <button type="submit">Save</button>
     </form>
 </section>
 </body>
