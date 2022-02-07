@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: scaut
-  Date: 05.02.2022
-  Time: 22:37
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -28,7 +21,7 @@
 <section>
     <h3><a href="index.html">Home</a></h3>
     <hr>
-    <h2>Create</h2>
+    <h2>${param.action == 'create' ? 'Create' : 'Update'}</h2>
     <jsp:useBean id="meal" type="ru.javawebinar.topjava.model.Meal" scope="request"/>
     <form method="post" action="meals">
         <input type="hidden" name="id" value="${meal.id}">

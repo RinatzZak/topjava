@@ -7,7 +7,7 @@ import java.util.Collection;
 public interface MealDao {
     Meal save(Meal meal);
 
-    Collection<Meal> getAllMeals();
+    Collection<Meal> getAll();
 
     void delete(int id);
 
