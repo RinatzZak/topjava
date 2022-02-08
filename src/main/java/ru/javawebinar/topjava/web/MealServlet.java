@@ -39,19 +39,14 @@ public class MealServlet extends HttpServlet {
         }
         switch (action.toLowerCase()) {
             case "delete":
-                log.debug("redirect to delete meal with id=" + getId(req));
                 mealDao.delete(getId(req));
+                log.debug("delete meal with id={}", getId(req));
                 resp.sendRedirect("meals");
                 break;
             case "create":
-                log.debug("redirect to create new meal");
-                Meal meal = new Meal(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES), "", 1000);
-                req.setAttribute("meal", meal);
-                req.getRequestDispatcher("/mealCreateAndUpdate.jsp").forward(req, resp);
-                break;
             case "edit":
-                log.debug("redirect to edit meal with id=" + getId(req));
-                meal = mealDao.get(getId(req));
+                Meal meal = action.equals("create") ? new Meal(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES),
+                        "", 1000) : mealDao.get(getId(req));
                 req.setAttribute("meal", meal);
                 req.getRequestDispatcher("/mealCreateAndUpdate.jsp").forward(req, resp);
                 break;
@@ -67,21 +62,15 @@ public class MealServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
-        Meal meal;
         String id = req.getParameter("id");
-        if (id.isEmpty()) {
-            meal = new Meal(null, LocalDateTime.parse(req.getParameter("dateTime")),
-                    req.getParameter("description").trim(), Integer.parseInt(req.getParameter("calories")));
-        } else {
-            meal = new Meal(Integer.valueOf(id), LocalDateTime.parse(req.getParameter("dateTime")),
-                    req.getParameter("description").trim(), Integer.parseInt(req.getParameter("calories")));
-        }
+        Meal meal = new Meal(id.isEmpty() ? null : Integer.valueOf(id), LocalDateTime.parse(req.getParameter("dateTime")),
+                req.getParameter("description"), Integer.parseInt(req.getParameter("calories")));
+        log.debug(meal.getId() == null ? "create new {}" : "update {}", meal);
         mealDao.save(meal);
         resp.sendRedirect("meals");
     }
 
     private int getId(HttpServletRequest request) {
-        int id = Integer.parseInt(request.getParameter("id"));
-        return id;
+        return Integer.parseInt(request.getParameter("id"));
     }
 }

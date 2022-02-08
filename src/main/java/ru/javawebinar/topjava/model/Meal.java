@@ -3,6 +3,7 @@ package ru.javawebinar.topjava.model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class Meal {
     private Integer id;
@@ -50,5 +51,15 @@ public class Meal {
 
     public LocalTime getTime() {
         return dateTime.toLocalTime();
+    }
+
+    @Override
+    public String toString() {
+        return "Meal{" +
+                "id=" + id +
+                ", dateTime=" + dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) +
+                ", description='" + description + '\'' +
+                ", calories=" + calories +
+                '}';
     }
 }
