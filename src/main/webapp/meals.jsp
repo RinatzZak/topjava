@@ -21,7 +21,7 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach items="${requestScope.mealList}" var="meal">
+    <c:forEach items="${mealList}" var="meal">
         <tr style="color:${meal.excess ? 'red' : 'green'}">
             <td><fmt:parseDate value="${meal.dateTime}" pattern="y-M-dd'T'H:m" var="date"/>
             <fmt:formatDate value="${date}" pattern="yyyy-MM-dd HH:mm" /></td>

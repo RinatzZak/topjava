@@ -22,8 +22,10 @@ public class InMemoryMealDao implements MealDao {
     public Meal save(Meal meal) {
         if (meal.getId() == null) {
             meal.setId(counter.incrementAndGet());
+            mealDaoMap.putIfAbsent(meal.getId(), meal);
+            return meal;
         }
-       return mealDaoMap.put(meal.getId(), meal);
+        return mealDaoMap.computeIfPresent(meal.getId(), (id, meal1) -> meal);
     }
 
     @Override

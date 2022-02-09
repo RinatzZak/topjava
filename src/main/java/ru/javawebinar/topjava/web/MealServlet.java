@@ -45,8 +45,10 @@ public class MealServlet extends HttpServlet {
                 break;
             case "create":
             case "edit":
-                Meal meal = action.equals("create") ? new Meal(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES),
-                        "", 1000) : mealDao.get(getId(req));
+                Meal meal = action.equals("create") ?
+                        new Meal(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES), "", 1000) :
+                        mealDao.get(getId(req));
+                log.debug(meal.getId() == null ? "create new {}" : "update {}", meal);
                 req.setAttribute("meal", meal);
                 req.getRequestDispatcher("/mealCreateAndUpdate.jsp").forward(req, resp);
                 break;
