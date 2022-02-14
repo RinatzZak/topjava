@@ -14,6 +14,29 @@
         .excess {
             color: red;
         }
+
+         .b1 {
+             background: blue;
+             color: white;
+             font-size: 9pt;
+         }
+
+        dl {
+            background: none repeat scroll 0 0 #FAFAFA;
+            margin: 8px 0;
+            padding: 0;
+        }
+
+        dt {
+            display: inline-block;
+            width: 170px;
+        }
+
+        dd {
+            display: inline-block;
+            margin-left: 8px;
+            vertical-align: top;
+        }
     </style>
 </head>
 <body>
@@ -21,6 +44,28 @@
     <h3><a href="index.html">Home</a></h3>
     <hr/>
     <h2>Meals</h2>
+    <form method="get" action="meals" >
+        <input type="hidden" name="action" value="filter">
+        <dl>
+        <dt>От даты (включая):</dt>
+        <dd><input type="date" value="${param.starDate}" name="startDate" required></dd>
+        </dl>
+        <dl>
+        <dt>До даты (включая):</dt>
+        <dd><input type="date" value="${param.endDate}" name="endDate" required></dd>
+        </dl>
+        <dl>
+        <dt>От времени (включая):</dt>
+        <dd><input type="time" value="${param.startTime}" name="startTime" required></dd>
+        </dl>
+        <dl>
+        <dt>До времени (исключая):</dt>
+        <dd><input type="time" value="${param.endTime}" name="endTime" required></dd>
+        </dl>
+        <br>
+        <button type="submit" class="b1">Отфильтровать</button>
+    </form>
+    <br>
     <a href="meals?action=create">Add Meal</a>
     <br><br>
     <table border="1" cellpadding="8" cellspacing="0">
@@ -34,7 +79,7 @@
         </tr>
         </thead>
         <c:forEach items="${meals}" var="meal">
-            <jsp:useBean id="meal" type="ru.javawebinar.topjava.model.MealTo"/>
+            <jsp:useBean id="meal" type="ru.javawebinar.topjava.to.MealTo"/>
             <tr class="${meal.excess ? 'excess' : 'normal'}">
                 <td>
                         <%--${meal.dateTime.toLocalDate()} ${meal.dateTime.toLocalTime()}--%>
