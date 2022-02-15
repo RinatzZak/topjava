@@ -1,10 +1,6 @@
 package ru.javawebinar.topjava.web;
 
 import org.slf4j.Logger;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import ru.javawebinar.topjava.model.User;
-import ru.javawebinar.topjava.web.meal.MealRestController;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -25,9 +21,9 @@ public class UserServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setCharacterEncoding("UTF-8");
-        SecurityUtil.setAuthUserId(Integer.parseInt(req.getParameter("id")));
-        log.info("set userId{}", Integer.parseInt(req.getParameter("id")));
+        int userId = Integer.parseInt(req.getParameter("id"));
+        SecurityUtil.setAuthUserId(userId);
+        log.info("set userId{}", userId);
         resp.sendRedirect("meals");
     }
 }

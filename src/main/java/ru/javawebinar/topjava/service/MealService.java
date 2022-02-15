@@ -3,11 +3,10 @@ package ru.javawebinar.topjava.service;
 import org.springframework.stereotype.Service;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
-import ru.javawebinar.topjava.to.MealTo;
-import ru.javawebinar.topjava.util.MealsUtil;
 
 import java.time.LocalDate;
-import java.util.Collection;
+import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 
 import static ru.javawebinar.topjava.util.ValidationUtil.checkNotFoundWithId;
@@ -34,18 +33,20 @@ public class MealService {
     }
 
     public List<Meal> getAll(int userId) {
-        return (List<Meal>) repository.getAll(userId);
+        return new ArrayList<>(repository.getAll(userId));
     }
 
     public void update(Meal meal, int userId) {
         checkNotFoundWithId(repository.save(meal, userId), meal.getId());
     }
 
-    public List<Meal> getBetweenHalfOpen(LocalDate localDateStart, LocalDate localDateEnd, int userId){
+    public List<Meal> getBetweenHalfOpen(LocalDate localDateStart, LocalDate localDateEnd, int userId) {
+        if (localDateStart == null) {
+            localDateStart = LocalDate.of(1900, Month.JANUARY, 1);
+        }
+        if (localDateEnd == null) {
+            localDateEnd = LocalDate.of(2500, Month.DECEMBER, 31);
+        }
         return repository.getBetweenHalfOpen(localDateStart.atStartOfDay(), localDateEnd.plusDays(1).atStartOfDay(), userId);
-    }
-
-    public List<MealTo> getAllToGetTos(Collection<Meal> meals, int caloriesPerDay) {
-        return MealsUtil.getTos(meals, caloriesPerDay);
     }
 }

@@ -7,6 +7,7 @@ import ru.javawebinar.topjava.util.DateTimeUtil;
 import ru.javawebinar.topjava.util.MealsUtil;
 
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -22,19 +23,19 @@ public class InMemoryMealRepository implements MealRepository {
     private final AtomicInteger counter = new AtomicInteger(0);
 
     {
-        for (Meal meal : MealsUtil.meals) {
-            save(meal, 1);
-        }
+        MealsUtil.meals.forEach(meal -> save(meal, 1));
+        save(new Meal(LocalDateTime.of(2022, Month.FEBRUARY, 15, 10, 0), "Кофе для Админа", 500), 2);
+        save(new Meal(LocalDateTime.of(2022, Month.FEBRUARY, 15, 13, 0), "Обед для Админа", 700), 2);
+        save(new Meal(LocalDateTime.of(2022, Month.FEBRUARY, 15, 21, 0), "Ужин для Админа", 600), 2);
+        save(new Meal(LocalDateTime.of(2022, Month.FEBRUARY, 24, 9, 11), "Кофе для Админа", 500), 2);
+        save(new Meal(LocalDateTime.of(2022, Month.FEBRUARY, 24, 12, 22), "Обед для Админа", 700), 2);
+        save(new Meal(LocalDateTime.of(2022, Month.FEBRUARY, 24, 22, 33), "Ужин для Админа", 600), 2);
     }
+
 
     @Override
     public Meal save(Meal meal, int userId) {
-        Map<Integer, Meal> mealMap = repository.get(userId);
-        if (mealMap == null) {
-            mealMap = new ConcurrentHashMap<>();
-            repository.put(userId, mealMap);
-        }
-
+        Map<Integer, Meal> mealMap = repository.computeIfAbsent(userId, ConcurrentHashMap::new);
         if (meal.isNew()) {
             meal.setId(counter.incrementAndGet());
             mealMap.put(meal.getId(), meal);
@@ -52,20 +53,20 @@ public class InMemoryMealRepository implements MealRepository {
     @Override
     public Meal get(int id, int userId) {
         Map<Integer, Meal> mealMap = repository.get(userId);
-        return  mealMap == null ? null : mealMap.get(id);
+        return mealMap == null ? null : mealMap.get(id);
     }
 
     @Override
     public List<Meal> getAll(int userId) {
-        return getFilters(userId, meal -> true);
+        return getFiltered(userId, meal -> true);
     }
 
     @Override
     public List<Meal> getBetweenHalfOpen(LocalDateTime startTime, LocalDateTime endTime, int userId) {
-       return getFilters(userId, meal -> DateTimeUtil.isBetweenHalfOpen(meal.getDateTime(), startTime, endTime));
+        return getFiltered(userId, meal -> DateTimeUtil.isBetweenHalfOpen(meal.getDateTime(), startTime, endTime));
     }
 
-    private List<Meal> getFilters(int userId, Predicate<Meal> predicate){
+    private List<Meal> getFiltered(int userId, Predicate<Meal> predicate) {
         Map<Integer, Meal> mealMap = repository.get(userId);
         return mealMap == null ? Collections.emptyList() : mealMap.values().stream()
                 .filter(predicate)
