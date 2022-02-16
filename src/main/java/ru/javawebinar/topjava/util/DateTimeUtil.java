@@ -6,8 +6,8 @@ import java.time.format.DateTimeFormatter;
 public class DateTimeUtil {
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-    public static <T extends Comparable<T>> boolean isBetweenHalfOpen(T data, T startTime, T endTime) {
-        return (startTime == null || data.compareTo(startTime) >= 0) && (endTime == null || data.compareTo(endTime) < 0);
+    public static <T extends Comparable<T>> boolean isBetweenHalfOpen(T point, T start, T end) {
+        return (start == null || point.compareTo(start) >= 0) && (end == null || point.compareTo(end) < 0);
     }
 
     public static String toString(LocalDateTime ldt) {

@@ -27,6 +27,7 @@ public class MealRestController {
     }
 
     public List<MealTo> getBetweenHalfOpen(LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime) {
+        log.info("calculation for filter between date {}-{} and time {}-{} for user{}", startDate, endDate, startTime, endTime, SecurityUtil.authUserId());
         return MealsUtil.getFilteredTos(service.getBetweenHalfOpen(startDate, endDate, SecurityUtil.authUserId()),
                 SecurityUtil.authUserCaloriesPerDay(), startTime, endTime);
     }
