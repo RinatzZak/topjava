@@ -14,7 +14,6 @@ import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.List;
 
@@ -81,7 +80,14 @@ public class MealServiceTest {
     @Test
     public void duplicateDateTimeCreate() {
         assertThrows(DataAccessException.class, () -> service.create(new Meal(
-                null, LocalDateTime.of(2022, Month.FEBRUARY, 19, 9, 11), "Завтрак", 600), USER_ID));
+                null, breakfast.getDateTime(), "НовыйЗавтрак", 600), USER_ID));
+    }
+
+    @Test
+    public void getBetweenInclusiveWithNullDate() {
+        assertMatch(service.getBetweenInclusive(null, null, USER_ID),
+                dinnerOfNextDay, lunchOfNextDay, breakfastOfNextDay, dinner, coffeeTime, lunch,
+                breakfast);
     }
 
     @Test
@@ -95,7 +101,7 @@ public class MealServiceTest {
     public void update() {
         Meal meal = MealTestData.getUpdated();
         service.update(meal, USER_ID);
-        assertMatch(service.get(MEAL_ID, USER_ID), meal);
+        assertMatch(service.get(MEAL_ID, USER_ID), getUpdated());
     }
 
     @Test
