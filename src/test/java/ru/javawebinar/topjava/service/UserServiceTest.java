@@ -1,5 +1,6 @@
 package ru.javawebinar.topjava.service;
 
+import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExternalResource;
@@ -30,8 +31,8 @@ import static ru.javawebinar.topjava.UserTestData.*;
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class UserServiceTest {
 
-    @Rule
-    public ExternalResource resource = TestRules.RESOURCE;
+    @ClassRule
+    public static ExternalResource resource = TestRules.RESOURCE;
 
     @Rule
     public Stopwatch stopwatch = TestRules.STOPWATCH;
