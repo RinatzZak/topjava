@@ -50,7 +50,7 @@ public abstract class AbstractServiceTest {
         });
     }
 
-    boolean isJpaProfile() {
+    public boolean isJdbcProfile() {
         return environment.acceptsProfiles(Profiles.of(ru.javawebinar.topjava.Profiles.JPA, ru.javawebinar.topjava.Profiles.DATAJPA));
     }
 }
