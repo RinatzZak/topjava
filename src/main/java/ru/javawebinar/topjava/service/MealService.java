@@ -6,8 +6,13 @@ import org.springframework.util.Assert;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import javax.validation.Validation;
+import javax.validation.Validator;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 import static ru.javawebinar.topjava.util.DateTimeUtil.atStartOfDayOrMin;
 import static ru.javawebinar.topjava.util.DateTimeUtil.atStartOfNextDayOrMax;
@@ -15,6 +20,8 @@ import static ru.javawebinar.topjava.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
 public class MealService {
+
+    private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
     private final MealRepository repository;
 
@@ -39,13 +46,26 @@ public class MealService {
     }
 
     public void update(Meal meal, int userId) {
-        Assert.notNull(meal, "meal must not be null");
+        validated(meal);
         checkNotFoundWithId(repository.save(meal, userId), meal.id());
     }
 
     public Meal create(Meal meal, int userId) {
-        Assert.notNull(meal, "meal must not be null");
+        validated(meal);
         return repository.save(meal, userId);
+    }
+
+    private void validated(Meal meal) {
+        Set<ConstraintViolation<Meal>> violations = validator.validate(meal);
+
+        if (!violations.isEmpty()) {
+            StringBuilder sb = new StringBuilder();
+            for (ConstraintViolation<Meal> constraintViolation : violations) {
+                sb.append(constraintViolation.getMessage());
+            }
+            throw new ConstraintViolationException("Error occurred: " + sb.toString(), violations);
+        }
+        Assert.notNull(meal, "meal must not be null");
     }
 
     public Meal getWithUser(int id, int userId) {

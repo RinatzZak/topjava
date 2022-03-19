@@ -2,12 +2,16 @@ package ru.javawebinar.topjava.web.meal;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.javawebinar.topjava.model.Meal;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -19,7 +23,8 @@ import static ru.javawebinar.topjava.util.DateTimeUtil.parseLocalTime;
 
 @Controller
 @RequestMapping("/meals")
-public class JspMealController extends AbstractMealController {
+@Validated
+public class JspMealController extends MealRestController {
 
     @GetMapping("/delete")
     public String delete(HttpServletRequest request) {
