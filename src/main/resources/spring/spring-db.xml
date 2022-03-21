@@ -64,7 +64,7 @@
         </bean>
 
         <bean id="namedJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
-            <constructor-arg ref="jdbcTemplate"/>
+            <constructor-arg ref="dataSource"/>
         </bean>
 
         <bean id="transactionManager"
