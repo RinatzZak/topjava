@@ -1,0 +1,195 @@
+{
+	"id": "2695510c-f80c-4b10-9629-5ec0ad620f7d",
+	"name": "MealRestController",
+	"timestamp": "2022-03-26T14:38:54.623Z",
+	"collection_id": "19073879-6752ca75-fadd-4f62-8843-ed3321e23cab",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 5,
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "3984aeee-9aee-444f-8234-2f174124ab57",
+			"name": "getAll",
+			"url": "http://localhost:8080/topjava/rest/profile/meals/",
+			"time": 20,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				20
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			]
+		},
+		{
+			"id": "b33e594b-2cf9-461d-84ea-21b536a3bbee",
+			"name": "getMeal",
+			"url": "http://localhost:8080/topjava/rest/profile/meals/100004",
+			"time": 7,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				7
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			]
+		},
+		{
+			"id": "3332d215-7512-4f9d-bb7b-1b80c704ea33",
+			"name": "delete",
+			"url": "http://localhost:8080/topjava/rest/profile/meals/100015",
+			"time": 9,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				9
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			]
+		},
+		{
+			"id": "48d5af51-9219-4365-962d-9c86d553ddcc",
+			"name": "createWithLocation",
+			"url": "http://localhost:8080/topjava/rest/profile/meals/",
+			"time": 11,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				11
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "0f705ab6-b2f5-410c-8e05-2933bb691506",
+			"name": "update",
+			"url": "http://localhost:8080/topjava/rest/profile/meals/100004",
+			"time": 9,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				9
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			]
+		},
+		{
+			"id": "924549a8-7227-493d-b6cd-1cda183dddb4",
+			"name": "getBetween",
+			"url": "http://localhost:8080/topjava/rest/profile/meals/filter",
+			"time": 9,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				9
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 65,
+	"collection": {
+		"requests": [
+			{
+				"id": "3984aeee-9aee-444f-8234-2f174124ab57",
+				"method": "GET"
+			},
+			{
+				"id": "b33e594b-2cf9-461d-84ea-21b536a3bbee",
+				"method": "GET"
+			},
+			{
+				"id": "3332d215-7512-4f9d-bb7b-1b80c704ea33",
+				"method": "DELETE"
+			},
+			{
+				"id": "48d5af51-9219-4365-962d-9c86d553ddcc",
+				"method": "POST"
+			},
+			{
+				"id": "0f705ab6-b2f5-410c-8e05-2933bb691506",
+				"method": "PUT"
+			},
+			{
+				"id": "924549a8-7227-493d-b6cd-1cda183dddb4",
+				"method": "GET"
+			}
+		]
+	}
+}
