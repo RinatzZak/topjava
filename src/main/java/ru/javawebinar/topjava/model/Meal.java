@@ -1,6 +1,8 @@
 package ru.javawebinar.topjava.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.Range;
@@ -25,6 +27,7 @@ import java.time.LocalTime;
 })
 @Entity
 @Table(name = "meals", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "date_time"}, name = "meals_unique_user_datetime_idx")})
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Meal extends AbstractBaseEntity {
     public static final String ALL_SORTED = "Meal.getAll";
     public static final String DELETE = "Meal.delete";
@@ -32,15 +35,18 @@ public class Meal extends AbstractBaseEntity {
 
     @Column(name = "date_time", nullable = false)
     @NotNull
+    @JsonProperty("dateTime")
     private LocalDateTime dateTime;
 
     @Column(name = "description", nullable = false)
     @NotBlank
     @Size(min = 2, max = 120)
+    @JsonProperty("description")
     private String description;
 
     @Column(name = "calories", nullable = false)
     @Range(min = 10, max = 5000)
+    @JsonProperty("calories")
     private int calories;
 
     @ManyToOne(fetch = FetchType.LAZY)
