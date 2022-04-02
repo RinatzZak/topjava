@@ -2,7 +2,20 @@ const mealAjaxUrl = "profile/meals/";
 
 const ctx = {
     ajaxUrl: mealAjaxUrl,
+    updateTable: function () {
+                $.ajax({
+                        type: "GET",
+                        url: mealAjaxUrl + "filter",
+                        data: $("#filter").serialize()
+                }).done(filterWithData);
+            },
 };
+
+function cancelFilter() {
+        $("#filter")[0].reset();
+        $.get(mealAjaxUrl, filterWithData);
+    }
+
 
 
 $(function () {
@@ -12,10 +25,10 @@ $(function () {
             "info": true,
             "columns": [
                 {
-                    "data": "description"
+                    "data": "datetime"
                 },
                 {
-                    "data": "datetime"
+                    "data": "description"
                 },
                 {
                     "data": "calories"
@@ -32,7 +45,7 @@ $(function () {
             "order": [
                 [
                     0,
-                    "asc"
+                    "desc"
                 ]
             ]
         })

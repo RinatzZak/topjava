@@ -29,7 +29,7 @@
                 <th></th>
             </tr>
             </thead>
-            <c:forEach items="${requestScope.users}" var="user">
+            <c:forEach items="${users}" var="user">
                 <jsp:useBean id="user" type="ru.javawebinar.topjava.model.User"/>
                 <tr id="${user.id}">
                     <td><c:out value="${user.name}"/></td>
