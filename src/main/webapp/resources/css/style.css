@@ -23,6 +23,15 @@ tr[data-meal-excess="true"] {
     color: red;
 }
 
+tr[data-user-enabled="true"] {
+    color: green;
+}
+
+tr[data-user-enabled="false"] {
+    color: darkred;
+    opacity: 0.3;
+}
+
 .fa {
     cursor: pointer;
 }

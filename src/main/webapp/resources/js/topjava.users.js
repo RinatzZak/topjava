@@ -5,6 +5,18 @@ const ctx = {
     ajaxUrl: userAjaxUrl
 };
 
+function enableCheck(check, id) {
+    const checked = check.is(":checked")
+    $.ajax({
+        url: userAjaxUrl + id,
+        type: "POST",
+        data: "enabled=" + checked
+    }).done(function () {
+        check.closest("tr").attr("data-user-enabled", checked);
+        successNoty(checked ? "enable" : "disable")
+    })
+}
+
 // $(document).ready(function () {
 $(function () {
     makeEditable(
