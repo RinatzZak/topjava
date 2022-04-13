@@ -76,10 +76,10 @@ public class ValidationUtil {
         return rootCause != null ? rootCause : t;
     }
 
-    public static ResponseEntity<String> getErrorMessage(BindingResult result) {
-            String errorFieldMessage = result.getFieldErrors().stream()
-                    .map(fieldError -> String.format("[%s] %s", fieldError.getField(), fieldError.getDefaultMessage()))
-                    .collect(Collectors.joining("<br>"));
-            return ResponseEntity.unprocessableEntity().body(errorFieldMessage);
+    public static ResponseEntity<String> getErrorResponseEntity(BindingResult result) {
+        String errorFieldMessage = result.getFieldErrors().stream()
+                .map(fieldError -> String.format("[%s] %s", fieldError.getField(), fieldError.getDefaultMessage()))
+                .collect(Collectors.joining("<br>"));
+        return ResponseEntity.unprocessableEntity().body(errorFieldMessage);
     }
 }
