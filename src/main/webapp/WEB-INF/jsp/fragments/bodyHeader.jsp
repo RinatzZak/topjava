@@ -4,8 +4,9 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <nav class="navbar navbar-dark bg-dark py-0">
-    <div class="container">
-        <a href="meals" class="navbar-brand"><img src="resources/images/icon-meal.png"> <spring:message code="app.title"/></a>
+    <li class="container">
+        <a href="meals" class="navbar-brand"><img src="resources/images/icon-meal.png"> <spring:message
+                code="app.title"/></a>
         <sec:authorize access="isAuthenticated()">
             <form:form class="form-inline my-2" action="logout" method="post">
                 <sec:authorize access="hasRole('ADMIN')">
@@ -26,5 +27,12 @@
                 </button>
             </form:form>
         </sec:authorize>
-    </div>
+    </li>
+    <li class="nav-item dropdown">
+        <a class="dropdown-toggle nav-link my-1 ml-2" data-toggle="dropdown">ru</a>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="login?language=en">English</a>
+            <a class="dropdown-item" href="login?language=ru">Русский</a>
+        </div>
+    </li>
 </nav>
