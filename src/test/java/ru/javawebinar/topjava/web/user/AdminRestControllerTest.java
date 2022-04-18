@@ -195,7 +195,6 @@ class AdminRestControllerTest extends AbstractControllerTest {
                 .with(userHttpBasic(admin))
                 .content(jsonWithPassword(duplet, "Abracadabra")))
                 .andDo(print())
-                .andExpect(status().isConflict())
-        .andExpect(content().string(EXCEPTION_DUPLICATE_EMAIL.toLowerCase(LocaleContextHolder.getLocale())));
+                .andExpect(status().isConflict());
     }
 }

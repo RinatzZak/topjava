@@ -116,25 +116,13 @@ class ProfileRestControllerTest extends AbstractControllerTest {
 
     @Test
     @Transactional(propagation = Propagation.NEVER)
-    void createDuplicate() throws Exception {
-        UserTo duplet = new UserTo(null, "User", "user@yandex.ru", "111111", 1500);
-        perform(MockMvcRequestBuilders.post(REST_URL)
-                .contentType(MediaType.APPLICATION_JSON)
-                .with(userHttpBasic(user))
-                .content(JsonUtil.writeValue(duplet)))
-                .andDo(print())
-                .andExpect(status().isUnprocessableEntity());
-    }
-
-    @Test
-    @Transactional(propagation = Propagation.NEVER)
     void registerDuplicated() throws Exception {
-        UserTo duplet = new UserTo(null, "User2", admin.getEmail(), "12323", 2005);
+        UserTo duplet = new UserTo(null, "User2", "admin@gmail.com", "12323", 2005);
         perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(duplet)))
                 .andDo(print())
-                .andExpect(status().isUnprocessableEntity());
+                .andExpect(status().isConflict());
     }
 
     @Test
