@@ -18,6 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = MealRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class MealRestController extends AbstractMealController {
+
     static final String REST_URL = "/rest/profile/meals";
 
     @Override
@@ -49,11 +50,9 @@ public class MealRestController extends AbstractMealController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Meal> createWithLocation(@Valid @RequestBody Meal meal) {
         Meal created = super.create(meal);
-
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
                 .buildAndExpand(created.getId()).toUri();
-
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 

@@ -15,24 +15,19 @@ import ru.javawebinar.topjava.util.exception.NotFoundException;
 import ru.javawebinar.topjava.web.AbstractControllerTest;
 import ru.javawebinar.topjava.web.json.JsonUtil;
 
-import java.util.Locale;
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.javawebinar.topjava.MealTestData.*;
 import static ru.javawebinar.topjava.TestUtil.userHttpBasic;
 import static ru.javawebinar.topjava.UserTestData.*;
 import static ru.javawebinar.topjava.util.MealsUtil.createTo;
 import static ru.javawebinar.topjava.util.MealsUtil.getTos;
-import static ru.javawebinar.topjava.util.exception.ErrorType.VALIDATION_ERROR;
-import static ru.javawebinar.topjava.web.ExceptionInfoHandler.EXCEPTION_DUPLICATE_DATETIME;
 
 class MealRestControllerTest extends AbstractControllerTest {
 
     private static final String REST_URL = MealRestController.REST_URL + '/';
-
-    private Locale ru_Ru = Locale.getDefault();
 
     @Autowired
     private MealService mealService;
@@ -133,21 +128,21 @@ class MealRestControllerTest extends AbstractControllerTest {
 
     @Test
     void createInvalid() throws Exception {
-        Meal invalidate = new Meal(null, null, null, 0);
+        Meal wrong = new Meal(null, null, null, 0);
         perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(user))
-                .content(JsonUtil.writeValue(invalidate)))
+                .content(JsonUtil.writeValue(wrong)))
                 .andExpect(status().isUnprocessableEntity());
     }
 
     @Test
     void updateInvalid() throws Exception {
-        Meal invalidate = new Meal(MEAL1_ID, null, "1", 100000);
+        Meal wrong = new Meal(MEAL1_ID, null, "1", 100000);
         perform(MockMvcRequestBuilders.put(REST_URL + MEAL1_ID)
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(user))
-                .content(JsonUtil.writeValue(invalidate)))
+                .content(JsonUtil.writeValue(wrong)))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity());
     }

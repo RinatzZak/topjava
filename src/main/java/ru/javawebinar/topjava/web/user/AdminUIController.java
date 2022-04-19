@@ -8,17 +8,15 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.to.UserTo;
+import ru.javawebinar.topjava.util.exception.EmailDuplicatedException;
 import ru.javawebinar.topjava.util.exception.IllegalRequestDataException;
 
 import javax.validation.Valid;
 import java.util.List;
 
-import static ru.javawebinar.topjava.web.ExceptionInfoHandler.EXCEPTION_DUPLICATE_EMAIL;
-
 @RestController
 @RequestMapping(value = "/admin/users", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AdminUIController extends AbstractUserController {
-
     private final MessageSource messageSource;
 
     public AdminUIController(MessageSource messageSource) {
@@ -54,7 +52,7 @@ public class AdminUIController extends AbstractUserController {
                 super.update(userTo, userTo.id());
             }
         } catch (DataIntegrityViolationException e) {
-            throw new IllegalRequestDataException(messageSource.getMessage(EXCEPTION_DUPLICATE_EMAIL, null, LocaleContextHolder.getLocale()));
+            throw new EmailDuplicatedException(messageSource.getMessage("exception.user.duplicateEmail", null, LocaleContextHolder.getLocale()));
         }
     }
 
